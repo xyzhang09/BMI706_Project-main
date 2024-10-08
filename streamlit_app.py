@@ -7,7 +7,6 @@ import streamlit as st
 import pandas as pd
 import altair as alt
 
-from vega_datasets import data
 
 # Load data from the URL
 url = 'https://raw.githubusercontent.com/xyzhang09/BMI706_Project/main/clean_Life_Expectancy_Data.csv'
