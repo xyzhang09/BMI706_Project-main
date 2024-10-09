@@ -1,16 +1,17 @@
-import subprocess
-subprocess.run(["pip", "install", "vega_datasets"])
-
-from vega_datasets import data
-
 import streamlit as st
 import pandas as pd
 import altair as alt
-
+import json
+import urllib.request
 
 # Load data from the URL
 url = 'https://raw.githubusercontent.com/xyzhang09/BMI706_Project/main/clean_Life_Expectancy_Data.csv'
 df = pd.read_csv(url)
+
+# Load the world topojson data from a local file or URL
+topojson_url = 'https://raw.githubusercontent.com/xyzhang09/BMI706_Project/main/world_110m_topo.json'
+world_topojson = urllib.request.urlopen(topojson_url).read()
+world_topojson = json.loads(world_topojson)
 
 # Streamlit app title
 st.title("Life Expectancy Comparison Dashboard")
@@ -26,7 +27,7 @@ factor = st.selectbox('Select a factor to compare with Life Expectancy',
 df2 = df[df['Year'] == year]
 
 # Load the world topojson data
-source = alt.topo_feature(data.world_110m.url, 'countries')
+source = alt.topo_feature(world_topojson, 'countries')
 
 # Map configuration
 width = 600
